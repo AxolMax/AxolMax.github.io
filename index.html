@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxolMax的个人博客</title>
+    <!-- 引入Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Google Fonts字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- 引入图标库 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* 使用自定义字体 */
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f8f9fa; /* 更柔和的背景色 */
+        }
+        /* 页面切换时的平滑过渡效果 */
+        .page-section {
+            display: none; /* 默认隐藏所有板块 */
+            animation: fadeIn 0.8s;
+        }
+        .page-section.active {
+            display: block; /* 显示当前激活的板块 */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 导航栏激活状态样式 */
+        .nav-link.active {
+            color: #3b82f6; /* 蓝色 */
+            border-bottom: 2px solid #3b82f6;
+        }
+        /* 卡片悬停效果 */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- 导航栏 -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gray-800">时光小站</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300 pb-1 active">首页</a>
+                <a href="#articles" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300 pb-1">精品文章</a>
+                <a href="#resources" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300 pb-1">资源分享</a>
+                <a href="#music" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300 pb-1">好歌推荐</a>
+                <a href="#gallery" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300 pb-1">心情画廊</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-blue-500 transition duration-300 pb-1">关于我</a>
+            </div>
+            <!-- 移动端菜单按钮 -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </nav>
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white">
+            <a href="#home" class="nav-link block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">首页</a>
+            <a href="#articles" class="nav-link block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">精品文章</a>
+            <a href="#resources" class="nav-link block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">资源分享</a>
+            <a href="#music" class="nav-link block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">好歌推荐</a>
+            <a href="#gallery" class="nav-link block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">心情画廊</a>
+            <a href="#about" class="nav-link block py-2 px-6 text-sm text-gray-600 hover:bg-gray-100">关于我</a>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <main class="container mx-auto p-6 md:p-8">
+
+        <!-- 首页/欢迎区 -->
+        <section id="home" class="page-section active">
+            <div class="text-center bg-white p-12 rounded-xl shadow-lg">
+                <img src="./head.jpg" alt="博主头像" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-md">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">欢迎来到我的数字花园</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">在这里，我记录思想的火花，分享生活的点滴，并收藏那些触动心灵的旋律与瞬间。</p>
+            </div>
+        </section>
+
+        <!-- 精品文章区 -->
+        <section id="articles" class="page-section">
+            <h2 class="text-3xl font-bold text-center mb-8">精品文章</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 文章卡片 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="https://learn.ccw.site/_next/image?url=https%3A%2F%2Fm.ccw.site%2Fcreator-college%2Fcover%2F4d2f3343be8ff98125a1c1b8712d8f05.png&w=1200&q=75" alt="文章封面" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">2025年7月8日</span>
+                        <h3 class="text-xl font-bold my-2">用github一键部署属于自己的游戏、个人展示网站？</h3>
+                        <p class="text-gray-600 mb-4">用github一键部署属于自己的游戏、个人展示网站？</p>
+                        <a href="https://learn.ccw.site/article/cee52ce6-b00c-4ab8-9cfc-228085e08b48" class="text-blue-500 hover:underline font-semibold">阅读全文 &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 资源分享区 -->
+        <section id="resources" class="page-section">
+            <h2 class="text-3xl font-bold text-center mb-8">资源分享</h2>
+            <div class="space-y-6 max-w-4xl mx-auto">
+                <!-- 资源项 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg flex items-center space-x-6 card-hover">
+                    <div class="bg-blue-100 text-blue-500 p-4 rounded-full">
+                        <i class="fas fa-tools text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">果核剥壳</h3>
+                        <p class="text-gray-600">超级优质的破解软件下载网站同时也是软件交流社区！</p>
+                        <a href="#" class="text-blue-500 hover:underline mt-2 inline-block">查看详情 &rarr;</a>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- 好歌推荐区 -->
+        <section id="music" class="page-section">
+            <h2 class="text-3xl font-bold text-center mb-8">好歌推荐</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 歌曲卡片 1 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                    <img src="https://placehold.co/200x200/f87171/ffffff?text=专辑封面" alt="专辑封面" class="w-40 h-40 rounded-lg mx-auto mb-4 shadow-md">
+                    <h3 class="text-xl font-bold">歌曲名称 A</h3>
+                    <p class="text-gray-500">歌手 / 乐队</p>
+                    <button class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-300">
+                        <i class="fas fa-play mr-2"></i> 播放
+                    </button>
+                </div>
+                <!-- 歌曲卡片 2 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                    <img src="https://placehold.co/200x200/60a5fa/ffffff?text=专辑封面" alt="专辑封面" class="w-40 h-40 rounded-lg mx-auto mb-4 shadow-md">
+                    <h3 class="text-xl font-bold">歌曲名称 B</h3>
+                    <p class="text-gray-500">歌手 / 乐队</p>
+                    <button class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-300">
+                        <i class="fas fa-play mr-2"></i> 播放
+                    </button>
+                </div>
+                <!-- 歌曲卡片 3 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover">
+                    <img src="https://placehold.co/200x200/34d399/ffffff?text=专辑封面" alt="专辑封面" class="w-40 h-40 rounded-lg mx-auto mb-4 shadow-md">
+                    <h3 class="text-xl font-bold">歌曲名称 C</h3>
+                    <p class="text-gray-500">歌手 / 乐队</p>
+                    <button class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-300">
+                        <i class="fas fa-play mr-2"></i> 播放
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 心情画廊 -->
+        <section id="gallery" class="page-section">
+            <h2 class="text-3xl font-bold text-center mb-8">心情画廊</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="card-hover rounded-xl overflow-hidden"><img src="https://placehold.co/500x500/fbbf24/ffffff?text=风景" alt="图片1" class="w-full h-full object-cover"></div>
+                <div class="card-hover rounded-xl overflow-hidden col-span-1 md:col-span-2"><img src="https://placehold.co/800x400/a78bfa/ffffff?text=城市" alt="图片2" class="w-full h-full object-cover"></div>
+                <div class="card-hover rounded-xl overflow-hidden"><img src="https://placehold.co/500x500/f472b6/ffffff?text=美食" alt="图片3" class="w-full h-full object-cover"></div>
+                <div class="card-hover rounded-xl overflow-hidden"><img src="https://placehold.co/500x500/4ade80/ffffff?text=宠物" alt="图片4" class="w-full h-full object-cover"></div>
+                <div class="card-hover rounded-xl overflow-hidden"><img src="https://placehold.co/500x500/22d3ee/ffffff?text=日常" alt="图片5" class="w-full h-full object-cover"></div>
+                <div class="card-hover rounded-xl overflow-hidden"><img src="https://placehold.co/500x500/fb923c/ffffff?text=星空" alt="图片6" class="w-full h-full object-cover"></div>
+            </div>
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="page-section">
+            <h2 class="text-3xl font-bold text-center mb-8">关于我</h2>
+            <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-8">
+                <img src="https://placehold.co/200x200/c084fc/ffffff?text=生活照" alt="博主生活照" class="w-40 h-40 rounded-full shadow-md flex-shrink-0">
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-bold">你好，我是[你的名字]</h3>
+                    <p class="text-gray-600 mt-4">一个热爱代码、音乐和生活的探索者。我喜欢用文字记录感悟，用代码构建世界。这个博客是我的个人空间，希望你在这里能有所发现，有所共鸣。</p>
+                    <div class="mt-6 flex justify-center md:justify-start space-x-4">
+                        <a href="#" class="text-gray-500 hover:text-blue-500 transition duration-300"><i class="fab fa-github fa-2x"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-blue-500 transition duration-300"><i class="fab fa-weibo fa-2x"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-blue-500 transition duration-300"><i class="fas fa-envelope fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white mt-12 py-6">
+        <div class="container mx-auto text-center text-gray-500">
+            <p>&copy; 2024 [你的名字]. All Rights Reserved.</p>
+            <p class="text-sm mt-2">由 Gemini 强力驱动</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.page-section');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // 页面切换函数
+            function switchPage(targetId) {
+                // 隐藏所有板块
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                // 显示目标板块
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                }
+
+                // 更新导航链接的激活状态
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    // 使用 getAttribute('href') 来匹配
+                    if (link.getAttribute('href') === targetId) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // 如果是移动端菜单，点击后关闭
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
+            
+            // 默认显示首页
+            switchPage('#home');
+
+            // 为所有导航链接添加点击事件监听器
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    switchPage(targetId);
+                    // 平滑滚动到页面顶部
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // 移动端菜单切换
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
