@@ -1,7 +1,3 @@
- Gandi 反作弊扩展
- This script is designed to be a Gandi extension to detect and prevent
- malicious data manipulation and API abuse by third-party scripts.
-
 class GandiAntiCheatExtension {
   constructor(vm) {
      Gandi's extension system likely provides the VM instance in the constructor.
@@ -224,4 +220,5 @@ class GandiAntiCheatExtension {
 
  In a real Gandi environment, the extension would be registered something like this
  Scratch.extensions.register(new GandiAntiCheatExtension(Scratch.vm));
+
 
