@@ -224,3 +224,4 @@ class GandiAntiCheatExtension {
 
  In a real Gandi environment, the extension would be registered something like this
  Scratch.extensions.register(new GandiAntiCheatExtension(Scratch.vm));
+
