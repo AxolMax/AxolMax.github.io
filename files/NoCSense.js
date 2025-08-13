@@ -2,10 +2,11 @@
 // This script is designed to be a Gandi extension to detect and prevent
 // malicious data manipulation and API abuse by third-party scripts.
 
+// The core class of the extension, which contains all the logic.
 class GandiAntiCheatExtension {
+  // The constructor is called when the extension is created.
+  // It receives the Scratch VM instance as an argument.
   constructor(vm) {
-    // Gandi's extension system likely provides the VM instance in the constructor.
-    // We'll assume a `vm` object is available.
     this.vm = vm;
     this.patches = new Map(); // Store original methods to un-patch later if needed.
     this.lastDataUpdateTime = 0;
@@ -14,8 +15,9 @@ class GandiAntiCheatExtension {
     this.initialize();
   }
 
+  // The getInfo method provides metadata about the extension,
+  // including the blocks it adds to the editor.
   getInfo() {
-    // Provide basic information about the extension.
     return {
       id: 'antiCheat',
       name: 'Anti-Cheat Protection',
@@ -25,19 +27,26 @@ class GandiAntiCheatExtension {
         {
           opcode: 'checkStatus',
           blockType: 'reporter',
-          text: 'Anti-Cheat Status',
+          text: '反作弊状态', // Changed to Chinese for user-friendliness
           disableMonitor: true
         }
       ]
     };
   }
 
+  // This is the function that the '反作弊状态' block will call.
+  // It simply reports that the extension is active.
   checkStatus() {
     return 'Active';
   }
 
+  // The initialization function sets up all the patches.
   initialize() {
     console.log('[Anti-Cheat] Initializing anti-cheat protection...');
+    if (!this.vm || !this.vm.runtime || !this.vm.runtime.ccwAPI) {
+      console.error('[Anti-Cheat] Scratch VM instance or APIs not available. Cannot initialize.');
+      return;
+    }
     this.patchDataModification();
     this.patchExtensionLoader();
     this.patchLeaderboardCalls();
@@ -67,7 +76,7 @@ class GandiAntiCheatExtension {
       if (this.updateCount > this.updateThreshold) {
         // Detected too many updates in a short period, which is a strong
         // indicator of a cheat script. Block the operation.
-        this.showWarning('High-frequency data modification detected and blocked!');
+        this.showWarning('高频数据修改被检测并阻止！'); // Changed to Chinese
         console.warn('[Anti-Cheat] Blocked high-frequency data modification:', {
           target,
           key,
@@ -95,14 +104,12 @@ class GandiAntiCheatExtension {
 
     this.vm.extensionManager.loadExtensionURL = async (url) => {
       // Check if the URL is from a known, trusted source or an official extension.
-      // For this example, we'll assume any URL not from a specific whitelist
-      // requires user confirmation.
       const isTrusted = url.includes('gandi-main.ccw.site') || url.includes('official-extensions.ccw.site');
       
       if (!isTrusted) {
-        // We'll use a custom modal instead of `alert()` as it's not allowed.
+        // Use a custom modal instead of `alert()` as it's not allowed in iframes.
         const userConfirmation = await this.showCustomConfirm(
-          `警告: 您正在尝试加载来自非官方来源的扩展: \n${url}\n这可能包含恶意代码。您确定要继续吗？`
+          `警告: 您正在尝试加载来自非官方来源的扩展: \n${url}\n这可能包含恶意代码。您确定要继续吗？` // Changed to Chinese
         );
         
         if (!userConfirmation) {
@@ -128,9 +135,8 @@ class GandiAntiCheatExtension {
     
     this.vm.runtime.ccwAPI.insertLeaderboard = (leaderboardId, score, ext) => {
       // Perform basic sanity checks on the score.
-      // This is a simple example. More sophisticated checks could be done server-side.
       if (typeof score !== 'number' || score < 0 || score > 1000000) {
-        this.showWarning(`Detected an invalid score value: ${score}. Leaderboard submission blocked.`);
+        this.showWarning(`检测到无效的分数值：${score}。排行榜提交被阻止。`); // Changed to Chinese
         console.warn('[Anti-Cheat] Blocked invalid leaderboard score submission:', {
           leaderboardId,
           score,
@@ -144,7 +150,7 @@ class GandiAntiCheatExtension {
     };
   }
 
-  // Helper function to show a custom warning message (instead of alert).
+  // Helper function to show a custom warning message.
   showWarning(message) {
     const modal = document.createElement('div');
     modal.style.position = 'fixed';
@@ -164,7 +170,7 @@ class GandiAntiCheatExtension {
     text.style.color = '#333';
     
     const closeBtn = document.createElement('button');
-    closeBtn.textContent = 'OK';
+    closeBtn.textContent = '确定'; // Changed to Chinese
     closeBtn.style.marginTop = '10px';
     closeBtn.style.padding = '5px 10px';
     closeBtn.style.cursor = 'pointer';
@@ -196,7 +202,7 @@ class GandiAntiCheatExtension {
       text.style.color = '#333';
 
       const confirmBtn = document.createElement('button');
-      confirmBtn.textContent = 'Yes';
+      confirmBtn.textContent = '是'; // Changed to Chinese
       confirmBtn.style.marginRight = '10px';
       confirmBtn.style.padding = '5px 10px';
       confirmBtn.style.cursor = 'pointer';
@@ -205,4 +211,32 @@ class GandiAntiCheatExtension {
         resolve(true);
       };
 
-      const cancelBtn = docume
+      const cancelBtn = document.createElement('button');
+      cancelBtn.textContent = '否'; // Changed to Chinese
+      cancelBtn.style.padding = '5px 10px';
+      cancelBtn.style.cursor = 'pointer';
+      cancelBtn.onclick = () => {
+        document.body.removeChild(modal);
+        resolve(false);
+      };
+
+      modal.appendChild(text);
+      modal.appendChild(confirmBtn);
+      modal.appendChild(cancelBtn);
+      document.body.appendChild(modal);
+    });
+  }
+}
+
+// --- 以下是关键的注册代码 ---
+// GandiIDE 扩展的正确注册方式
+// Gandi IDE 会在 `window.ScratchExtensions` 下提供扩展注册方法。
+(function() {
+  const S = window.ScratchExtensions || {};
+  if (S.register) {
+    S.register(GandiAntiCheatExtension);
+    console.log('[Anti-Cheat] Extension registered successfully.');
+  } else {
+    console.error('[Anti-Cheat] ScratchExtensions.register not found. Cannot register extension.');
+  }
+})();
